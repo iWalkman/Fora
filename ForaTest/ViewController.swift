@@ -8,11 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UICollectionViewDataSource,  UISearchBarDelegate, UISearchDisplayDelegate {
+    
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        ApiWorker.shared.getSongsByAlbum(albumId: 526041016, countryCode: "RU"){
+            _,_  in
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
     }
 
 
