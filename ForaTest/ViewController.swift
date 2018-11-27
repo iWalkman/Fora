@@ -28,6 +28,19 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         definesPresentationContext = true
         
         activityIndicator.hidesWhenStopped = true
+        
+        setCellSize()
+        
+    }
+    
+    func setCellSize(){
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        let cellWidth = (UIScreen.main.bounds.width - 20) / 2
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth * 1.2)
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 10
+        collectionView.collectionViewLayout = layout
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
@@ -35,6 +48,11 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         activityIndicator.startAnimating()
         ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!){
             albums  in
+            
+            if albums.count == 0 {
+                self.showAlertOfNilSearchResult()
+            }
+            
             self.albums = albums.sorted { $0.collectionName < $1.collectionName }
             
             self.collectionView.reloadData()
@@ -54,6 +72,22 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
         cell.initialize(album: albums[indexPath.row])
         return cell
+    }
+    
+    func showAlertOfNilSearchResult(){
+        let alert = UIAlertController(title: "Nothing fing", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
