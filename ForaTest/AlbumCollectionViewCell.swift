@@ -9,9 +9,15 @@ import UIKit
 
 class AlbumCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var albumImage: UIImageView!
     @IBOutlet weak var albumName: UILabel!
+    
     func initialize(album: Album){
         self.albumName.text = album.collectionName
+        self.albumImage.imageFromServerURL(urlString: album.artworkUrl100)
     }
     
 }
+
+
+
