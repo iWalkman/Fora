@@ -16,15 +16,16 @@ class ApiWorker: NSObject {
     
     let searchAlbumAdress = "https://itunes.apple.com/search?entity=album"
     let searchSongsByAlbum = "https://itunes.apple.com/lookup?media=music&entity=song&limit=200"
+    let localeCode = Locale.current.regionCode
     
-    func getAlbumsBySearch(albumName: String, countryCode: String, completionHandler: @escaping (String, Error?) -> (Void)){
-        Alamofire.request(searchAlbumAdress, method: .get, parameters: ["country": countryCode, "term": albumName] ).responseJSON{
+    func getAlbumsBySearch(albumName: String, completionHandler: @escaping ([Album]) -> (Void)){
+        Alamofire.request(searchAlbumAdress, method: .get, parameters: ["country": localeCode!, "term": albumName] ).responseJSON{
                 json in
-                print(json)
+                completionHandler(JSON(json.value!)["results"].arrayValue.map{Album(album: $0)})
         }    }
     
-    func getSongsByAlbum(albumId: Int, countryCode: String, completionHandler: @escaping (String, Error?) -> (Void)){
-        Alamofire.request(searchSongsByAlbum, method: .get, parameters: ["country": countryCode, "id": albumId]).responseJSON{
+    func getSongsByAlbum(albumId: Int, completionHandler: @escaping (String, Error?) -> (Void)){
+        Alamofire.request(searchSongsByAlbum, method: .get, parameters: ["country": localeCode!, "id": albumId]).responseJSON{
             json in
             print(json)
         }

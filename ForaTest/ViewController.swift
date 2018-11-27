@@ -8,28 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController,UICollectionViewDataSource,  UISearchBarDelegate, UISearchDisplayDelegate {
+class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var collectionView: UICollectionView!
+    let searchController = UISearchController(searchResultsController: nil)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ApiWorker.shared.getSongsByAlbum(albumId: 526041016, countryCode: "RU"){
-            _,_  in
+        
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Candies"
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!){
+            albums  in
+            
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-
 
 }
-
