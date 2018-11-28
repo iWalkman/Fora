@@ -21,7 +21,7 @@ class TracksTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func initialize(track: Track){
+    func initialize(track: Track){//initialize cell
         self.numberLabel.text = track.number
         self.nameThrackLabel.text = track.name
     }

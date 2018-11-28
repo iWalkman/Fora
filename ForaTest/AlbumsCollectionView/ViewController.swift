@@ -43,25 +43,25 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         collectionView.collectionViewLayout = layout
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-        collectionView.isHidden = true
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){// implementation of UISearchBarDelegate to search by button click
+        collectionView.isHidden = true// hide collection view for search
         activityIndicator.startAnimating()
-        ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!, completionHandler: {
+        ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!, completionHandler: { // get albums by request
             albums  in
             
-            if albums.count == 0 {
+            if albums.count == 0 {// if search fails show alert
                 self.showAlertOfNilSearchResult(titleOfAlert: "Nothing found")
             }
             
-            self.albums = albums.sorted { $0.collectionName < $1.collectionName }
+            self.albums = albums.sorted { $0.collectionName < $1.collectionName }// sorting recived array alphabetically
             
             self.collectionView.reloadData()
             self.activityIndicator.stopAnimating()
-            self.collectionView.isHidden = false
+            self.collectionView.isHidden = false// show table view after request
             
-            self.searchController.isActive = false
+            self.searchController.isActive = false // hides search controller
         } ) { error in
-                self.showAlertOfNilSearchResult(titleOfAlert: "Network Error")
+                self.showAlertOfNilSearchResult(titleOfAlert: "Network Error") // if recived error show alert
         }
     }
     
@@ -70,13 +70,12 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
         cell.initialize(album: albums[indexPath.row])
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {// transfer date to album presentation view controller
         if let destinationVC = segue.destination as? PresentationOfAlbumTableViewController{
             let index = self.collectionView.indexPathsForSelectedItems?.first![1]
             destinationVC.album = albums[index!]
@@ -84,7 +83,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
     }
     
     
-    func showAlertOfNilSearchResult(titleOfAlert: String){
+    func showAlertOfNilSearchResult(titleOfAlert: String){// show alert for errors
         let alert = UIAlertController(title: titleOfAlert, message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{

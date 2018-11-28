@@ -28,7 +28,7 @@ class AlbumInfoTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func initialize(album: Album){
+    func initialize(album: Album){//initialize cell
         self.albumImage.imageFromServerURL(urlString: album.artworkUrl100)
         self.albumNameLabel.text = album.collectionCensoredName
         self.albumNameLabel.lineBreakMode = .byWordWrapping
@@ -43,7 +43,6 @@ class AlbumInfoTableViewCell: UITableViewCell {
     
     /// Transforming date format to correct format
     func dateFormatToString(dateString: String) -> String{
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let date = dateFormatter.date(from: dateString)

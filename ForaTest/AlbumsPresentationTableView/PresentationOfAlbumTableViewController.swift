@@ -19,19 +19,20 @@ class PresentationOfAlbumTableViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()// get normal view there we have not cells of songs
         
-        ApiWorker.shared.getSongsByAlbum(albumId: (album?.collectionId)!, completionHandler:  {             tracks in
-                    self.tracks = tracks
-                    self.tracks.remove(at: 0)//removing existing album info
-                    self.tableView.reloadData()} )
+        ApiWorker.shared.getSongsByAlbum(albumId: (album?.collectionId)!, completionHandler:  {
+            tracks in
+            self.tracks = tracks
+            self.tracks.remove(at: 0)//removing existing album info
+            self.tableView.reloadData()} )// reloading table view after reciving list of tracks
         { error in
             self.showAlertOfNilSearchResult(titleOfAlert: "Can not download songs, try later")
         }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 2// one section to album info, one for tracks, one to rule them all
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,15 +46,15 @@ class PresentationOfAlbumTableViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0){
-            return CGFloat(UIScreen.main.bounds.width * 0.45)
+            return CGFloat(UIScreen.main.bounds.width * 0.5)// cell height for screen size
         }
 
-        return CGFloat(UIScreen.main.bounds.width * 0.1)
+        return CGFloat(UIScreen.main.bounds.width * 0.1)// cell height for screen size
         
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        //branching to return cell for section
         if (indexPath.section == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as? AlbumInfoTableViewCell
             cell?.initialize(album: self.album!)
@@ -65,7 +66,7 @@ class PresentationOfAlbumTableViewController: UITableViewController{
         return cell!
     }
     
-    func showAlertOfNilSearchResult(titleOfAlert: String){
+    func showAlertOfNilSearchResult(titleOfAlert: String){// show alert for errors
         let alert = UIAlertController(title: titleOfAlert, message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{
