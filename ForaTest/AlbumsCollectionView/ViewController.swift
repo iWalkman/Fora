@@ -46,11 +46,11 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         collectionView.isHidden = true
         activityIndicator.startAnimating()
-        ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!){
+        ApiWorker.shared.getAlbumsBySearch(albumName: searchController.searchBar.text!, completionHandler: {
             albums  in
             
             if albums.count == 0 {
-                self.showAlertOfNilSearchResult()
+                self.showAlertOfNilSearchResult(titleOfAlert: "Nothing found")
             }
             
             self.albums = albums.sorted { $0.collectionName < $1.collectionName }
@@ -60,6 +60,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
             self.collectionView.isHidden = false
             
             self.searchController.isActive = false
+        } ) { error in
+                self.showAlertOfNilSearchResult(titleOfAlert: "Network Error")
         }
     }
     
@@ -82,8 +84,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
     }
     
     
-    func showAlertOfNilSearchResult(){
-        let alert = UIAlertController(title: "Nothing fing", message: "", preferredStyle: .alert)
+    func showAlertOfNilSearchResult(titleOfAlert: String){
+        let alert = UIAlertController(title: titleOfAlert, message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{
             case .default:

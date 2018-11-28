@@ -18,16 +18,27 @@ class ApiWorker: NSObject {
     let searchSongsByAlbum = "https://itunes.apple.com/lookup?media=music&entity=song&limit=200"
     let localeCode = Locale.current.regionCode
     
-    func getAlbumsBySearch(albumName: String, completionHandler: @escaping ([Album]) -> (Void)){
+    func getAlbumsBySearch(albumName: String, completionHandler: @escaping ([Album]) -> (Void), errorCallback: @escaping (_ error: Error) -> (Void)){
         Alamofire.request(searchAlbumAdress, method: .get, parameters: ["country": localeCode!, "term": albumName] ).responseJSON{
-                json in
-                completionHandler(JSON(json.value!)["results"].arrayValue.map{Album(album: $0)})
-        }    }
-    
-    func getSongsByAlbum(albumId: Int, completionHandler: @escaping ([Track]) -> (Void)){
-        Alamofire.request(searchSongsByAlbum, method: .get, parameters: ["country": localeCode!, "id": albumId]).responseJSON{
-            json in
-            completionHandler(JSON(json.value!)["results"].arrayValue.map{Track(track: $0)})
+                responce in
+            if responce.response?.statusCode == 200 {
+                completionHandler(JSON(responce.value!)["results"].arrayValue.map{Album(album: $0)})
+            } else {
+            errorCallback( NSError(domain: "Internal server error", code: 1002, userInfo: nil) )
+            }
         }
+        
+    }
+    
+    func getSongsByAlbum(albumId: Int, completionHandler: @escaping ([Track]) -> (Void), errorCallback: @escaping (_ error: Error) -> (Void)){
+        Alamofire.request(searchSongsByAlbum, method: .get, parameters: ["country": localeCode!, "id": albumId]).responseJSON{
+            responce in
+            if responce.response?.statusCode == 200 {
+                completionHandler(JSON(responce.value!)["results"].arrayValue.map{Track(track: $0)})
+            } else {
+            errorCallback( NSError(domain: "Internal server error", code: 1002, userInfo: nil) )
+            }
+        }
+        
     }
 }

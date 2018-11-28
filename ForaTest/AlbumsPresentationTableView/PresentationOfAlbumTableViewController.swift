@@ -21,14 +21,14 @@ class PresentationOfAlbumTableViewController: UITableViewController{
         
         self.tableView.tableFooterView = UIView()
         
-        ApiWorker.shared.getSongsByAlbum(albumId: (album?.collectionId)!){
-            tracks in
-            self.tracks = tracks
-            self.tracks.remove(at: 0)//removing existing album info
-            self.tableView.reloadData()
+        ApiWorker.shared.getSongsByAlbum(albumId: (album?.collectionId)!, completionHandler:  {             tracks in
+                    self.tracks = tracks
+                    self.tracks.remove(at: 0)//removing existing album info
+                    self.tableView.reloadData()} )
+        { error in
+            self.showAlertOfNilSearchResult(titleOfAlert: "Can not download songs, try later")
         }
     }
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -63,6 +63,22 @@ class PresentationOfAlbumTableViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as? TracksTableViewCell
         cell?.initialize(track: tracks[indexPath.row])
         return cell!
+    }
+    
+    func showAlertOfNilSearchResult(titleOfAlert: String){
+        let alert = UIAlertController(title: titleOfAlert, message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
  
 
