@@ -14,6 +14,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     let searchController = UISearchController(searchResultsController: nil)
+    
     var albums = [Album]()
     
     override func viewDidLoad() {
@@ -30,7 +31,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         activityIndicator.hidesWhenStopped = true
         
         setCellSize()
-        
     }
     
     func setCellSize(){
@@ -73,6 +73,14 @@ class ViewController: UIViewController, UISearchBarDelegate, UISearchDisplayDele
         cell.initialize(album: albums[indexPath.row])
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? PresentationOfAlbumTableViewController{
+            let index = self.collectionView.indexPathsForSelectedItems?.first![1]
+            destinationVC.album = albums[index!]
+        }
+    }
+    
     
     func showAlertOfNilSearchResult(){
         let alert = UIAlertController(title: "Nothing fing", message: "", preferredStyle: .alert)

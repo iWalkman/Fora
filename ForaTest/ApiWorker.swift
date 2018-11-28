@@ -24,11 +24,10 @@ class ApiWorker: NSObject {
                 completionHandler(JSON(json.value!)["results"].arrayValue.map{Album(album: $0)})
         }    }
     
-    func getSongsByAlbum(albumId: Int, completionHandler: @escaping (String, Error?) -> (Void)){
+    func getSongsByAlbum(albumId: Int, completionHandler: @escaping ([Track]) -> (Void)){
         Alamofire.request(searchSongsByAlbum, method: .get, parameters: ["country": localeCode!, "id": albumId]).responseJSON{
             json in
-            print(json)
+            completionHandler(JSON(json.value!)["results"].arrayValue.map{Track(track: $0)})
         }
     }
-    
 }

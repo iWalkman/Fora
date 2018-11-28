@@ -42,7 +42,6 @@ class Album: NSObject {
         self.currency = album["currency"].stringValue
         self.releaseDate = album["releaseDate"].stringValue
         self.primaryGenreName = album["primaryGenreName"].stringValue
-
     }
 
 }

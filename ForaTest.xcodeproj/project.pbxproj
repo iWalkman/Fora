@@ -20,6 +20,10 @@
 		35C0F16B21AC4AEC0083E6AE /* ForaTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0F16A21AC4AEC0083E6AE /* ForaTestTests.swift */; };
 		35C0F17621AC4AEC0083E6AE /* ForaTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0F17521AC4AEC0083E6AE /* ForaTestUITests.swift */; };
 		35C0F18421AC6DA70083E6AE /* ApiWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0F18321AC6DA70083E6AE /* ApiWorker.swift */; };
+		35D4BE5621AE07B200D0868C /* PresentationOfAlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D4BE5521AE07B200D0868C /* PresentationOfAlbumTableViewController.swift */; };
+		35D4BE5E21AE190500D0868C /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D4BE5D21AE190500D0868C /* AlbumInfoTableViewCell.swift */; };
+		35D4BE6221AE320F00D0868C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D4BE6121AE320E00D0868C /* Track.swift */; };
+		35D4BE6621AE467100D0868C /* TracksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D4BE6521AE467100D0868C /* TracksTableViewCell.swift */; };
 		AD503F5A4733712112394794 /* Pods_ForaTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13BF2F0F4F91D3880D9BD3F /* Pods_ForaTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,10 @@
 		35C0F17521AC4AEC0083E6AE /* ForaTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForaTestUITests.swift; sourceTree = "<group>"; };
 		35C0F17721AC4AEC0083E6AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35C0F18321AC6DA70083E6AE /* ApiWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWorker.swift; sourceTree = "<group>"; };
+		35D4BE5521AE07B200D0868C /* PresentationOfAlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationOfAlbumTableViewController.swift; sourceTree = "<group>"; };
+		35D4BE5D21AE190500D0868C /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
+		35D4BE6121AE320E00D0868C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Track.swift; path = ForaTest/Models/Track.swift; sourceTree = SOURCE_ROOT; };
+		35D4BE6521AE467100D0868C /* TracksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TracksTableViewCell.swift; path = /iOSDev/ForaTest/ForaTest/AlbumsCollectionView/TracksTableViewCell.swift; sourceTree = "<absolute>"; };
 		393FD7A4343A30FA8CF0462E /* Pods-ForaTestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ForaTestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ForaTestUITests/Pods-ForaTestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6264C94A3C8A7B422CDE6C51 /* Pods-ForaTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ForaTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ForaTest/Pods-ForaTest.release.xcconfig"; sourceTree = "<group>"; };
 		7D97A048C91A3C6F720A38DC /* Pods-ForaTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ForaTestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ForaTestTests/Pods-ForaTestTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,12 +130,12 @@
 		35C0F15421AC4AEB0083E6AE /* ForaTest */ = {
 			isa = PBXGroup;
 			children = (
-				35C0F18321AC6DA70083E6AE /* ApiWorker.swift */,
 				35C0F15521AC4AEB0083E6AE /* AppDelegate.swift */,
-				35C0F15721AC4AEB0083E6AE /* ViewController.swift */,
-				35B9C39921ACE45300F6FB34 /* Album.swift */,
-				35B9C39D21ACF57000F6FB34 /* AlbumCollectionViewCell.swift */,
-				35BDE7E621AD1DCF00B012F8 /* UIImageAsyncDownload.swift */,
+				35C0F18321AC6DA70083E6AE /* ApiWorker.swift */,
+				35D4BE5921AE10EE00D0868C /* AlbumsPresentationTableView */,
+				35D4BE5821AE10C200D0868C /* AlbumsCollectionView */,
+				35D4BE5721AE10AE00D0868C /* Models */,
+				35D4BE5C21AE121C00D0868C /* ExtensionsAndProtocols */,
 				35C0F15921AC4AEB0083E6AE /* Main.storyboard */,
 				35C0F15C21AC4AEC0083E6AE /* Assets.xcassets */,
 				35C0F15E21AC4AEC0083E6AE /* LaunchScreen.storyboard */,
@@ -152,6 +160,42 @@
 				35C0F17721AC4AEC0083E6AE /* Info.plist */,
 			);
 			path = ForaTestUITests;
+			sourceTree = "<group>";
+		};
+		35D4BE5721AE10AE00D0868C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35D4BE6121AE320E00D0868C /* Track.swift */,
+				35B9C39921ACE45300F6FB34 /* Album.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35D4BE5821AE10C200D0868C /* AlbumsCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				35C0F15721AC4AEB0083E6AE /* ViewController.swift */,
+				35B9C39D21ACF57000F6FB34 /* AlbumCollectionViewCell.swift */,
+			);
+			path = AlbumsCollectionView;
+			sourceTree = "<group>";
+		};
+		35D4BE5921AE10EE00D0868C /* AlbumsPresentationTableView */ = {
+			isa = PBXGroup;
+			children = (
+				35D4BE5521AE07B200D0868C /* PresentationOfAlbumTableViewController.swift */,
+				35D4BE6521AE467100D0868C /* TracksTableViewCell.swift */,
+				35D4BE5D21AE190500D0868C /* AlbumInfoTableViewCell.swift */,
+			);
+			path = AlbumsPresentationTableView;
+			sourceTree = "<group>";
+		};
+		35D4BE5C21AE121C00D0868C /* ExtensionsAndProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				35BDE7E621AD1DCF00B012F8 /* UIImageAsyncDownload.swift */,
+			);
+			path = ExtensionsAndProtocols;
 			sourceTree = "<group>";
 		};
 		3F15B5E21B4664F2B18D838F /* Frameworks */ = {
@@ -406,11 +450,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				35C0F15821AC4AEB0083E6AE /* ViewController.swift in Sources */,
+				35D4BE6221AE320F00D0868C /* Track.swift in Sources */,
 				35C0F18421AC6DA70083E6AE /* ApiWorker.swift in Sources */,
+				35D4BE5621AE07B200D0868C /* PresentationOfAlbumTableViewController.swift in Sources */,
 				35C0F15621AC4AEB0083E6AE /* AppDelegate.swift in Sources */,
 				35B9C39A21ACE45300F6FB34 /* Album.swift in Sources */,
 				35BDE7E721AD1DCF00B012F8 /* UIImageAsyncDownload.swift in Sources */,
 				35B9C39E21ACF57000F6FB34 /* AlbumCollectionViewCell.swift in Sources */,
+				35D4BE5E21AE190500D0868C /* AlbumInfoTableViewCell.swift in Sources */,
+				35D4BE6621AE467100D0868C /* TracksTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

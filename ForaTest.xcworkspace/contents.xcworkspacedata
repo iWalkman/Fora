@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/iOSDev/ForaTest/ForaTest/AlbumsCollectionView/TracksTableViewCell.swift">
+   </FileRef>
+   <FileRef
       location = "group:ForaTest.xcodeproj">
    </FileRef>
    <FileRef
